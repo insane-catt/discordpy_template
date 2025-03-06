@@ -57,8 +57,8 @@ def error():
 
 @client.event
 async def on_ready():
-        await client.change_presence(activity=discord.Game(name="Template Bot"))
-        await tree.sync()
-        print("login complete")
+    await client.change_presence(activity=discord.Game(name="Template Bot"))
+    await tree.sync()
+    print("login complete")
 
 client.run(TOKEN)
