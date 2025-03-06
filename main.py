@@ -40,9 +40,9 @@ async def args(interaction: discord.Interaction, strings: str, integers: int, se
 # 成功のembedの例
 def success():
     embed = discord.Embed(
-            title="成功",
-            color=0x00ff00, # 緑
-            description="成功しました。"
+        title="成功",
+        color=0x00ff00, # 緑
+        description="成功しました。"
         )
     return embed
 
