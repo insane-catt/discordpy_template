@@ -3,10 +3,23 @@ from config import TOKEN
 import discord
 from discord import app_commands
 
+from datetime import datetime
+import asyncio
+
 intents = discord.Intents.default()
 intents.message_content = True # メッセージを読むことを可能にするには、これが必要
 client = discord.Client(intents=intents)
 tree = app_commands.CommandTree(client)
+
+# bot名の確認
+async def daily_task():
+    await client.wait_until_ready()
+    while not client.is_closed():
+        print(f"このbotは{client.user.name}です")
+        now = datetime.now()
+        next_run = now.replace(day=now.day + 1, hour=0, minute=0, second=0, microsecond=0)
+        sleep_time = (next_run - now).total_seconds()
+        await asyncio.sleep(sleep_time)
 
 # 単純なメッセージの例
 @tree.command(name="hello", description="Hello, world!")
@@ -60,5 +73,6 @@ async def on_ready():
     await client.change_presence(activity=discord.Game(name="Template Bot"))
     await tree.sync()
     print("login complete")
+    client.loop.create_task(daily_task())
 
 client.run(TOKEN)
